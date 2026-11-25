@@ -1,0 +1,52 @@
+name: MediVault CI/CD Security & Quality Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-and-test:
+    name: Build, Audit & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js LTS (24.x)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Gitleaks Secret Scanner (OWASP A04 Supply Chain / Secrets)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
+
+      - name: Install Frontend Dependencies
+        run: npm ci
+
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      - name: Audit Backend Dependencies (OWASP A03)
+        working-directory: ./backend
+        run: npm audit --audit-level=high
+
+      - name: Run Backend Security & Cryptography Unit Tests (Jest)
+        working-directory: ./backend
+        env:
+          NODE_ENV: test
+          DATA_ENCRYPTION_KEY: WjV4ODNrc3lMbmE5M1pRYWJDZEdISktMTU5PUFFSU1Q=
+          JWT_SECRET: ci_test_jwt_secret_key_medivault_2026_@#!
+        run: npm test
+
+      - name: Build React Production Frontend
+        run: npm run build

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: medivault-secure-app
+    runtime: docker
+    dockerfilePath: Dockerfile
+    plan: free
+    region: oregon
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: medivault-secure-app
+          property: host
+      - key: DATA_ENCRYPTION_KEY
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 1h
+      - key: LOGIN_MAX_ATTEMPTS
+        value: "5"
+      - key: LOGIN_WINDOW_MINUTES
+        value: "15"
+    disk:
+      name: medivault-data
+      mountPath: /app/backend/data
+      sizeGB: 1
+    healthCheckPath: /health

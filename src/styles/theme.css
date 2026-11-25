@@ -1,0 +1,80 @@
+:root {
+  /* MediVault Official Palette extracted from Logo */
+  --color-primary: #253852;          /* Azul marino profundo (principal, encabezados, botones primarios) */
+  --color-primary-dark: #192537;     /* Azul marino oscuro (hover, contrastes fuertes) */
+  --color-primary-light: #344c6e;    /* Azul marino medio */
+  
+  --color-secondary: #5A7B8C;        /* Azul pizarra / gris azulado (acentos, bordes, botones secundarios) */
+  --color-secondary-light: #7a9cb0;  /* Azul pizarra claro */
+  --color-secondary-subtle: #e9eff2; /* Azul pizarra fondo sutil */
+
+  --color-text-main: #303641;        /* Gris carbón oscuro (texto principal y tipografía) */
+  --color-text-secondary: #5A7B8C;   /* Gris azulado (texto secundario) */
+  --color-text-muted: #6b7785;       /* Gris suave para marcas de tiempo / hints */
+
+  --bg-main: #F9FAFB;                /* Blanco superficie limpia (fondo general) */
+  --bg-card: #FFFFFF;                /* Blanco puro (tarjetas, modales, formularios) */
+  --bg-subtle: #F1F5F9;              /* Gris muy claro para inputs y contrastes */
+
+  --border-color: #CBD5E1;           /* Borde neutral sobrio */
+  --border-focus: #5A7B8C;           /* Borde de foco en pizarra */
+
+  /* Estados semánticos suaves (alertas / badges sin romper la armonía) */
+  --color-success: #2E7D32;
+  --color-success-bg: #E8F5E9;
+  --color-warning: #EF6C00;
+  --color-warning-bg: #FFF3E0;
+  --color-danger: #C62828;
+  --color-danger-bg: #FFEBEE;
+  --color-info: #5A7B8C;
+  --color-info-bg: #E9EFF2;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+
+  --shadow-sm: 0 1px 3px rgba(37, 56, 82, 0.08);
+  --shadow-md: 0 4px 8px -2px rgba(37, 56, 82, 0.1), 0 2px 4px -1px rgba(37, 56, 82, 0.06);
+  --shadow-lg: 0 10px 20px -3px rgba(37, 56, 82, 0.12), 0 4px 6px -2px rgba(37, 56, 82, 0.05);
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--color-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  color: var(--color-text-main);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.85rem;
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(90, 123, 140, 0.15);
+}
