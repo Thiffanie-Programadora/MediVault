@@ -254,7 +254,7 @@ Monto Total: ₡163,850 CRC`);
                       Resultado del Agente (Auditado en BD):
                     </div>
                     <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
-                      Registro de trazabilidad generado en <code>ai_agent_logs</code>
+                      Registro de trazabilidad y auditoría clínica guardado
                     </span>
                   </div>
 

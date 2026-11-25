@@ -75,11 +75,10 @@ export default function AdminView({ user }) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       <div>
         <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--color-navy-dark)', marginBottom: '0.5rem' }}>
-          Panel de Administración y Auditoría Forense
+          Panel de Administración y Auditoría Institucional
         </h1>
         <p style={{ color: 'var(--color-slate-light)', maxWidth: '850px', lineHeight: 1.6 }}>
-          Control de acceso basado en roles (RBAC), registro inmutable de auditoría (OWASP A09),
-          cumplimiento de supresión de datos (Ley N.° 8968) y métricas de seguridad criptográfica AES-256-GCM.
+          Control de acceso a usuarios, bitácora de eventos institucionales y cumplimiento de la Ley de Protección de Datos Personales (Ley N.° 8968).
         </p>
       </div>
 
@@ -348,28 +347,28 @@ export default function AdminView({ user }) {
       {activeTab === 'crypto' && (
         <div className="card">
           <h2 style={{ fontSize: '1.15rem', fontWeight: 700, marginBottom: '1rem' }}>
-            Estado del Módulo Criptográfico y Seguridad FIPS
+            Métricas de Protección y Seguridad de la Bóveda
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
             <div style={{ background: 'var(--color-bg)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Algoritmo Simétrico Principal</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-navy-dark)' }}>AES-256-GCM</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-emerald)', marginTop: '0.25rem' }}>● Modo Autenticado Activo (16-byte Tag)</div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Nivel de Protección de Expedientes</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-navy-dark)' }}>Cifrado Militar Avanzado</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--color-emerald)', marginTop: '0.25rem' }}>● Protección activa en todas las notas clínicas</div>
             </div>
             <div style={{ background: 'var(--color-bg)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Vector de Inicialización (IV)</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-cyan)' }}>12 Bytes (96 bits)</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-slate-light)', marginTop: '0.25rem' }}>Generación Criptográficamente Fuerte (CSPRNG)</div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Seguridad por Registro Clínico</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-cyan)' }}>Protección Individual</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--color-slate-light)', marginTop: '0.25rem' }}>Prevención de duplicidad y aislamiento total</div>
             </div>
             <div style={{ background: 'var(--color-bg)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Derivación y Hash de Contraseñas</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-navy-dark)' }}>Bcrypt Cost 12</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-emerald)', marginTop: '0.25rem' }}>● Resistencia ante ataques GPU / Rainbow Table</div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Seguridad de Acceso de Usuarios</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-navy-dark)' }}>Alta Complejidad y Resguardo</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--color-emerald)', marginTop: '0.25rem' }}>● Protección contra accesos no autorizados</div>
             </div>
             <div style={{ background: 'var(--color-bg)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Tokens de Recuperación</div>
-              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-navy-dark)' }}>SHA-256 Hash</div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--color-slate-light)', marginTop: '0.25rem' }}>Expiración en 1 hora, Almacenamiento Cifrado</div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--color-slate-light)', marginBottom: '0.25rem' }}>Códigos de Recuperación</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-navy-dark)' }}>Uso Único y Temporal</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--color-slate-light)', marginTop: '0.25rem' }}>Expiración automática en 1 hora</div>
             </div>
           </div>
         </div>

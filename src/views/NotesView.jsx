@@ -60,10 +60,10 @@ export function NotesView({ user }) {
     try {
       if (editingNote) {
         await api.updateNote(editingNote.id, { title, content, category });
-        setSuccess('Nota actualizada y recifrada con éxito en la base de datos.');
+        setSuccess('Nota médica actualizada y protegida con éxito.');
       } else {
         await api.createNote({ title, content, category });
-        setSuccess('Nota privada cifrada con AES-256-GCM y almacenada exitosamente.');
+        setSuccess('Nota médica privada guardada exitosamente.');
       }
       setIsModalOpen(false);
       fetchNotes();
@@ -98,10 +98,10 @@ export function NotesView({ user }) {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#0F172A' }}>
-            Expedientes y Notas Privadas Cifradas
+            Expedientes y Notas Médicas Confidenciales
           </h2>
           <p style={{ color: '#64748B', fontSize: '0.9rem' }}>
-            Cumplimiento RF-04 y OWASP A01 (Anti-IDOR) / A04 (Cifrado AES-256-GCM autenticado en reposo)
+            Acceso exclusivo y protegido para su usuario clínico.
           </p>
         </div>
 
@@ -126,17 +126,17 @@ export function NotesView({ user }) {
       )}
 
       <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', padding: '1rem 1.25rem', borderRadius: '12px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <div style={{ background: '#E0F2FE', color: '#0284C7', padding: '0.6rem', borderRadius: '10px' }}>
+        <div style={{ background: '#E0F2FE', color: '#253852', padding: '0.6rem', borderRadius: '10px' }}>
           <IconLock size={22} />
         </div>
         <div style={{ fontSize: '0.86rem', color: '#334155' }}>
-          <strong>Garantía Criptográfica:</strong> Las notas se almacenan en la base de datos relacional únicamente como cadenas cifradas en formato <code>iv.tag.ciphertext</code>. Si un atacante extrae la base de datos sin la variable <code>DATA_ENCRYPTION_KEY</code>, no podrá leer los historiales clínicos ni alterar sus firmas sin ser detectado.
+          <strong>Confidencialidad Médica:</strong> Sus notas clínicas y diagnósticos están resguardados bajo estrictos controles de privacidad. Únicamente usted tiene autorización para acceder y gestionar estos expedientes.
         </div>
       </div>
 
       {loading ? (
         <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
-          Cargando y descifrando notas médicas con AES-256-GCM...
+          Cargando expedientes médicos...
         </div>
       ) : notes.length === 0 ? (
         <div className="card" style={{ textAlign: 'center', padding: '3.5rem' }}>
@@ -175,46 +175,23 @@ export function NotesView({ user }) {
                 </div>
 
                 <div style={{ borderTop: '1px solid #F1F5F9', paddingTop: '0.85rem' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '0.5rem' }}>
                     <button
                       type="button"
                       className="btn btn-outline btn-sm"
-                      style={{ fontSize: '0.72rem', color: '#0284C7' }}
-                      onClick={() => setRevealedCipherId(isCipherRevealed ? null : note.id)}
+                      onClick={() => openEditModal(note)}
                     >
-                      <IconLock size={12} />
-                      {isCipherRevealed ? 'Ocultar Cifrado' : 'Ver Cifrado en BD (AES-256)'}
+                      Editar
                     </button>
-
-                    <div style={{ display: 'flex', gap: '0.4rem' }}>
-                      <button
-                        type="button"
-                        className="btn btn-outline btn-sm"
-                        onClick={() => openEditModal(note)}
-                      >
-                        Editar
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-danger btn-sm"
-                        style={{ padding: '0.35rem 0.6rem' }}
-                        onClick={() => handleDelete(note.id)}
-                      >
-                        Eliminar
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      className="btn btn-danger btn-sm"
+                      style={{ padding: '0.35rem 0.6rem' }}
+                      onClick={() => handleDelete(note.id)}
+                    >
+                      Eliminar
+                    </button>
                   </div>
-
-                  {isCipherRevealed && (
-                    <div style={{ marginTop: '0.75rem' }}>
-                      <div style={{ fontSize: '0.7rem', fontWeight: 700, color: '#64748B' }}>
-                        Dato crudo en Base de Datos (iv.tag.data Base64):
-                      </div>
-                      <div className="cipher-code-block">
-                        {note.content_enc}
-                      </div>
-                    </div>
-                  )}
                 </div>
               </div>
             );
@@ -226,7 +203,7 @@ export function NotesView({ user }) {
         <div className="modal-overlay">
           <div className="modal-content">
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#0F172A', marginBottom: '1rem' }}>
-              {editingNote ? 'Editar Nota Médica Cifrada' : 'Nueva Nota Médica Privada'}
+              {editingNote ? 'Editar Nota Médica' : 'Nueva Nota Médica Privada'}
             </h3>
 
             <form onSubmit={handleSave}>
@@ -254,7 +231,7 @@ export function NotesView({ user }) {
               </div>
 
               <div className="form-group">
-                <label className="form-label">Contenido Clínico (Se cifrará con AES-256-GCM)</label>
+                <label className="form-label">Contenido Clínico y Observaciones</label>
                 <textarea
                   className="form-textarea"
                   rows={6}
@@ -279,7 +256,7 @@ export function NotesView({ user }) {
                   className="btn btn-primary"
                   disabled={saving}
                 >
-                  {saving ? 'Cifrando con AES-256...' : editingNote ? 'Actualizar Nota' : 'Guardar y Cifrar'}
+                  {saving ? 'Guardando...' : editingNote ? 'Actualizar Nota' : 'Guardar Nota'}
                 </button>
               </div>
             </form>

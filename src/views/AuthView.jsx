@@ -138,11 +138,11 @@ export function AuthView({ onAuthSuccess, onLoginSuccess }) {
         <div style={{ display: 'inline-flex', gap: '0.5rem', marginTop: '0.75rem' }}>
           <span className="badge-crypto">
             <IconLock size={13} />
-            Cifrado AES-256-GCM
+            Expedientes Protegidos
           </span>
           <span className="badge-crypto">
             <IconShield size={13} />
-            OWASP Top 10:2025
+            Alta Confidencialidad
           </span>
           <span className="badge-crypto">
             Ley N.° 8968 Costa Rica
@@ -326,7 +326,7 @@ export function AuthView({ onAuthSuccess, onLoginSuccess }) {
             </div>
 
             <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading || !isPasswordValid || !termsAccepted || !privacyAccepted}>
-              {loading ? 'Creando y Cifrando Perfil...' : 'Registrar Cuenta Segura'}
+              {loading ? 'Creando Perfil...' : 'Registrar Cuenta'}
             </button>
           </form>
         )}
@@ -334,7 +334,7 @@ export function AuthView({ onAuthSuccess, onLoginSuccess }) {
         {tab === 'forgot' && (
           <form onSubmit={handleForgot}>
             <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1rem' }}>
-              Ingrese su correo para generar un token criptográfico de recuperación de un solo uso (SHA-256).
+              Ingrese su correo registrado para recibir las instrucciones de recuperación.
             </p>
             <div className="form-group">
               <label className="form-label">Correo Registrado</label>
@@ -347,7 +347,7 @@ export function AuthView({ onAuthSuccess, onLoginSuccess }) {
               />
             </div>
             <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
-              {loading ? 'Generando...' : 'Generar Token de Recuperación'}
+              {loading ? 'Enviando...' : 'Solicitar Código de Recuperación'}
             </button>
           </form>
         )}
@@ -355,7 +355,7 @@ export function AuthView({ onAuthSuccess, onLoginSuccess }) {
         {tab === 'reset' && (
           <form onSubmit={handleReset}>
             <div className="form-group">
-              <label className="form-label">Token de Recuperación</label>
+              <label className="form-label">Código de Recuperación</label>
               <input
                 type="text"
                 className="form-input"

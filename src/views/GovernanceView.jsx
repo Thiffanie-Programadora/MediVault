@@ -90,9 +90,7 @@ export default function GovernanceView() {
             e inequívoco del titular o de su representante legal debidamente acreditado.
           </p>
           <p>
-            <strong>3. Medidas de Seguridad FIPS y OWASP:</strong> MediVault implementa cifrado simétrico autenticado
-            <strong> AES-256-GCM</strong> para los datos en reposo, firmas HMAC para verificar integridad, y derivación de contraseñas
-            mediante algoritmo <strong>Bcrypt (cost 12)</strong>.
+            <strong>3. Medidas de Seguridad y Confidencialidad:</strong> MediVault implementa rigurosos protocolos de protección digital y confidencialidad para todos los datos médicos almacenados, garantizando la integridad de los expedientes clínicos y el resguardo de las credenciales de acceso.
           </p>
           <p>
             <strong>4. Derechos ARCO:</strong> Todo usuario tiene derecho a solicitar de forma gratuita y en cualquier momento el
@@ -115,9 +113,7 @@ export default function GovernanceView() {
             clínica debe ser tomada exclusivamente por un profesional médico debidamente incorporado al Colegio de Médicos y Cirujanos de Costa Rica.
           </div>
           <p>
-            <strong>5. Registro y Trazabilidad de Agentes:</strong> Cada invocación a los agentes de IA queda registrada en la tabla
-            <code>ai_agent_logs</code> del sistema, almacenando el hash SHA-256 del prompt, modelo empleado, tokens consumidos y timestamp
-            para propósitos de auditoría médica forense y rendición de cuentas (Accountability).
+            <strong>5. Registro y Trazabilidad de Consultas:</strong> Cada consulta a las herramientas de asistencia queda registrada en la bitácora de auditoría médica del sistema para propósitos de trazabilidad clínica, supervisión médica y rendición de cuentas.
           </p>
           <p>
             <strong>6. No Re-Entrenamiento:</strong> MediVault garantiza que la información clínica y datos confidenciales introducidos

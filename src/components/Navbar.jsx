@@ -23,18 +23,17 @@ export function Navbar({ user, onLogout }) {
         <div>
           <div className="brand-name">
             MediVault
-            <span className="brand-tag">OWASP 2025</span>
           </div>
           <span style={{ fontSize: '0.72rem', color: '#5A7B8C', display: 'block', marginTop: '-2px' }}>
-            Bóveda Médica & Cifrado AES-256-GCM
+            Bóveda de Expedientes Clínicos
           </span>
         </div>
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-        <div className="badge-crypto" title="Cifrado autenticado activo en todas las notas de salud">
+        <div className="badge-crypto" title="Bóveda de salud con máxima protección y confidencialidad">
           <IconLock size={14} />
-          <span>AES-256-GCM & Bcrypt 12</span>
+          <span>Bóveda Protegida</span>
         </div>
 
         {user && (

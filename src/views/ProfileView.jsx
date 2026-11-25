@@ -107,17 +107,17 @@ export default function ProfileView({ user, onUpdateUser }) {
                   style={{ marginLeft: 'auto', padding: '0.35rem 0.75rem', fontSize: '0.8rem' }}
                   onClick={() => setShowRevealModal(true)}
                 >
-                  <EyeIcon /> Revelar (Requiere Clave)
+                  <EyeIcon /> Revelar (Requiere Contraseña)
                 </button>
               )}
               {revealedPii && (
                 <span className="badge badge-colaborador" style={{ marginLeft: 'auto', fontSize: '0.75rem' }}>
-                  Descifrado AES-256-GCM
+                  Identificación Verificada
                 </span>
               )}
             </div>
             <span style={{ fontSize: '0.75rem', color: 'var(--color-slate-light)', marginTop: '0.35rem', display: 'block' }}>
-              Cumplimiento OWASP A02: El dato está cifrado en reposo con AES-256-GCM. El backend jamás expone el valor plano sin verificación de contraseña previa.
+              Por motivos de privacidad y seguridad médica, este documento sensible se mantiene confidencial.
             </span>
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function ProfileView({ user, onUpdateUser }) {
               Verificación de Identidad Requerida
             </h3>
             <p style={{ fontSize: '0.85rem', color: 'var(--color-slate-light)', marginBottom: '1.25rem' }}>
-              Para descifrar su número de identificación oficial almacenado bajo AES-256-GCM, ingrese su contraseña actual:
+              Para visualizar su número de identificación oficial confidencial, ingrese su contraseña actual:
             </p>
 
             {revealError && (
