@@ -16,26 +16,28 @@ export default function App() {
   const [initialLoading, setInitialLoading] = useState(true);
 
   useEffect(() => {
-    // Check if token exists in localStorage
-    const savedUser = api.getCurrentUser();
-    if (savedUser) {
-      setUser(savedUser);
-      // Verify token with backend
-      api.getProfile()
-        .then((res) => {
-          if (res?.data) {
-            setUser({ ...savedUser, ...res.data });
-          }
-        })
-        .catch(() => {
-          // Token expired or invalid
-          api.logout();
-          setUser(null);
-        })
-        .finally(() => {
-          setInitialLoading(false);
-        });
-    } else {
+    try {
+      const savedUser = api.getCurrentUser();
+      const token = api.getToken();
+      if (savedUser && token) {
+        setUser(savedUser);
+        api.getProfile()
+          .then((res) => {
+            if (res?.profile || res?.data) {
+              setUser((prev) => ({ ...prev, ...(res.profile || res.data) }));
+            }
+          })
+          .catch(() => {
+            api.logout();
+            setUser(null);
+          })
+          .finally(() => {
+            setInitialLoading(false);
+          });
+      } else {
+        setInitialLoading(false);
+      }
+    } catch {
       setInitialLoading(false);
     }
   }, []);
@@ -53,10 +55,10 @@ export default function App() {
 
   if (initialLoading) {
     return (
-      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg)', color: 'var(--color-navy-dark)', fontFamily: 'var(--font-sans)' }}>
+      <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#F9FAFB', color: '#253852', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ width: '40px', height: '40px', border: '3px solid var(--color-border)', borderTopColor: 'var(--color-cyan)', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 1rem' }} />
-          <p style={{ fontWeight: 600 }}>Cargando MediVault Secure Health...</p>
+          <div style={{ width: '48px', height: '48px', border: '4px solid #CBD5E1', borderTopColor: '#253852', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 1.25rem' }} />
+          <p style={{ fontWeight: 700, fontSize: '1.05rem' }}>Cargando MediVault Secure Health...</p>
         </div>
       </div>
     );
@@ -64,13 +66,13 @@ export default function App() {
 
   // If not logged in, show Auth View
   if (!user) {
-    return <AuthView onLoginSuccess={handleLogin} />;
+    return <AuthView onLoginSuccess={handleLogin} onAuthSuccess={handleLogin} />;
   }
 
   return (
     <div className="app-container">
       <Navbar user={user} onLogout={handleLogout} />
-      <div className="main-wrapper">
+      <div className="main-layout">
         <Sidebar
           currentView={currentView}
           onNavigate={setCurrentView}

@@ -24,11 +24,12 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "blob:"],
-      connectSrc: ["'self'", env.FRONTEND_URL],
+      connectSrc: ["'self'", env.FRONTEND_URL, "http://localhost:5000", "http://127.0.0.1:5000"],
       objectSrc: ["'none'"],
-      upgradeInsecureRequests: env.NODE_ENV === 'production' ? [] : null
+      upgradeInsecureRequests: env.NODE_ENV === 'production' && !env.FRONTEND_URL.includes('localhost') ? [] : null
     }
   },
   crossOriginEmbedderPolicy: false
