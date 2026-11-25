@@ -1,0 +1,160 @@
+{
+  "name": "MediVault - Onboarding Pacientes y Registro Consentimiento Ley 8968",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "medivault-onboarding",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "node-webhook-trigger",
+      "name": "Webhook: Registro de Usuario",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.email }}",
+              "operation": "isNotEmpty"
+            },
+            {
+              "value1": "={{ $json.body.termsAccepted }}",
+              "operation": "equal",
+              "value2": "true"
+            }
+          ]
+        }
+      },
+      "id": "node-validate-consent",
+      "name": "Validar Consentimiento Ley 8968",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5000/api/governance/consent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"userId\": {{ $json.body.userId }},\n  \"consentType\": \"terms_and_privacy\",\n  \"ipAddress\": \"{{ $json.headers['x-forwarded-for'] || '127.0.0.1' }}\",\n  \"legalFramework\": \"Ley N.° 8968 Costa Rica\"\n}",
+        "options": {}
+      },
+      "id": "node-record-consent",
+      "name": "Registrar Consentimiento en BD",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "fromEmail": "seguridad@medivault.cr",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "Bienvenido a MediVault - Bóveda Médica Segura y Términos Aceptados",
+        "text": "=Estimado(a) {{ $json.body.fullName }},\n\nLe damos la bienvenida a MediVault. Confirmamos la creación de su cuenta y el registro de su consentimiento informado conforme a la Ley N.° 8968 de Protección de Datos de Costa Rica.\n\nSus datos clínicos están protegidos bajo estrictos protocolos de confidencialidad y control de acceso por roles.\n\nPara acceder a su expediente: http://localhost:5000\n\nAtentamente,\nEquipo de Seguridad Médica MediVault",
+        "options": {}
+      },
+      "id": "node-send-welcome-email",
+      "name": "Notificación de Bienvenida",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [900, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\",\n  \"message\": \"Onboarding y consentimiento procesados exitosamente\",\n  \"consentRecorded\": true,\n  \"legalReference\": \"Ley N.° 8968 Art. 9\"\n}",
+        "options": {}
+      },
+      "id": "node-respond-success",
+      "name": "Responder 200 OK",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"error\",\n  \"message\": \"Registro rechazado: consentimiento de términos obligatorio según Ley N.° 8968\"\n}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "id": "node-respond-error",
+      "name": "Responder Error Consentimiento",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [680, 400]
+    }
+  ],
+  "connections": {
+    "Webhook: Registro de Usuario": {
+      "main": [
+        [
+          {
+            "node": "Validar Consentimiento Ley 8968",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validar Consentimiento Ley 8968": {
+      "main": [
+        [
+          {
+            "node": "Registrar Consentimiento en BD",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder Error Consentimiento",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registrar Consentimiento en BD": {
+      "main": [
+        [
+          {
+            "node": "Notificación de Bienvenida",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notificación de Bienvenida": {
+      "main": [
+        [
+          {
+            "node": "Responder 200 OK",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
