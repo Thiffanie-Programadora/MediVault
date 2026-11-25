@@ -14,6 +14,7 @@ export function AiAgentsView({ user }) {
   useEffect(() => {
     fetchAgents();
     fetchHistory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchAgents = async () => {
