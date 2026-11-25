@@ -8,9 +8,11 @@ export async function runDatabaseSeed() {
   // 1. Seed Roles
   const roles = [
     { name: 'admin', description: 'Administrador del sistema con control total y auditoría' },
+    { name: 'user', description: 'Usuario estándar con acceso a su propia bóveda' },
+    { name: 'usuario', description: 'Usuario estándar con acceso a su propia bóveda' },
     { name: 'colaborador', description: 'Médico o personal de salud asistencial' },
     { name: 'cliente', description: 'Paciente o usuario final con acceso a su expediente' },
-    { name: 'auditor', description: 'Auditor de seguridad y cumplimiento normativo Ley 8968' }
+    { name: 'auditor', description: 'Auditor de seguridad y cumplimiento normativo' }
   ];
 
   for (const r of roles) {
@@ -33,6 +35,14 @@ export async function runDatabaseSeed() {
       role: 'admin',
       doc: '1-1122-3344',
       phone: '+506-8888-1111'
+    },
+    {
+      name: 'Carlos Mendoza (Usuario)',
+      email: 'user@medivault.cr',
+      password: 'UserPassword2026!',
+      role: 'user',
+      doc: '3-0233-0455',
+      phone: '+506-8888-5555'
     },
     {
       name: 'Dra. Elena Vargas (Médico)',
