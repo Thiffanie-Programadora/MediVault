@@ -14,7 +14,7 @@ export function Sidebar({ currentTab, onSelectTab, currentView, onNavigate, user
   return (
     <aside className="sidebar">
       <div style={{ padding: '0 0.5rem 0.5rem', fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        Bóveda Segura
+        Expedientes
       </div>
 
       <button
@@ -22,7 +22,7 @@ export function Sidebar({ currentTab, onSelectTab, currentView, onNavigate, user
         onClick={() => navigate('notes')}
       >
         <IconNotes size={18} />
-        <span>Notas Privadas (RF-04)</span>
+        <span>Notas Médicas</span>
       </button>
 
       <button
@@ -30,7 +30,7 @@ export function Sidebar({ currentTab, onSelectTab, currentView, onNavigate, user
         onClick={() => navigate('profile')}
       >
         <IconUser size={18} />
-        <span>Perfil y Dato Sensible (RF-05)</span>
+        <span>Mi Perfil</span>
       </button>
 
       {isAdmin && (
@@ -44,13 +44,13 @@ export function Sidebar({ currentTab, onSelectTab, currentView, onNavigate, user
             onClick={() => navigate('admin')}
           >
             <IconAdmin size={18} />
-            <span>Panel y Bitácora (RF-07)</span>
+            <span>Panel de Control</span>
           </button>
         </>
       )}
 
       <div style={{ margin: '1rem 0 0.5rem', borderTop: '1px solid #E2E8F0', paddingTop: '0.75rem', paddingLeft: '0.5rem', fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        Seguridad OWASP
+        Seguridad
       </div>
 
       <button
@@ -58,7 +58,7 @@ export function Sidebar({ currentTab, onSelectTab, currentView, onNavigate, user
         onClick={() => navigate('crypto')}
       >
         <IconLock size={18} />
-        <span>Criptografía y Salud (A04 / RF-08)</span>
+        <span>Seguridad y Estado</span>
       </button>
     </aside>
   );
