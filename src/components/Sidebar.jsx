@@ -1,22 +1,20 @@
 import React from 'react';
 import {
   IconNotes,
-  IconBot,
-  IconExternal,
   IconAdmin,
-  IconLegal,
-  IconUser
+  IconUser,
+  IconLock
 } from './Icons';
 
 export function Sidebar({ currentTab, onSelectTab, currentView, onNavigate, userRole }) {
   const active = currentView || currentTab;
   const navigate = onNavigate || onSelectTab;
-  const isAdminOrAuditor = userRole === 'admin' || userRole === 'auditor';
+  const isAdmin = userRole === 'admin';
 
   return (
     <aside className="sidebar">
       <div style={{ padding: '0 0.5rem 0.5rem', fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        Módulos del Sistema
+        Bóveda Segura
       </div>
 
       <button
@@ -24,53 +22,43 @@ export function Sidebar({ currentTab, onSelectTab, currentView, onNavigate, user
         onClick={() => navigate('notes')}
       >
         <IconNotes size={18} />
-        <span>Expedientes y Notas</span>
+        <span>Notas Privadas (RF-04)</span>
       </button>
-
-      <button
-        className={`nav-btn ${active === 'ai-agents' ? 'active' : ''}`}
-        onClick={() => navigate('ai-agents')}
-      >
-        <IconBot size={18} />
-        <span>8 Agentes de IA</span>
-      </button>
-
-      <button
-        className={`nav-btn ${active === 'external-apis' || active === 'apis' ? 'active' : ''}`}
-        onClick={() => navigate('apis')}
-      >
-        <IconExternal size={18} />
-        <span>APIs Externas</span>
-      </button>
-
-      {isAdminOrAuditor && (
-        <button
-          className={`nav-btn ${active === 'admin' ? 'active' : ''}`}
-          onClick={() => navigate('admin')}
-        >
-          <IconAdmin size={18} />
-          <span>Panel de Seguridad</span>
-        </button>
-      )}
-
-      <button
-        className={`nav-btn ${active === 'governance' ? 'active' : ''}`}
-        onClick={() => navigate('governance')}
-      >
-        <IconLegal size={18} />
-        <span>Gobernanza (Ley 8968)</span>
-      </button>
-
-      <div style={{ margin: '1rem 0 0.5rem', borderTop: '1px solid #E2E8F0', paddingTop: '0.75rem', paddingLeft: '0.5rem', fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        Cuenta
-      </div>
 
       <button
         className={`nav-btn ${active === 'profile' ? 'active' : ''}`}
         onClick={() => navigate('profile')}
       >
         <IconUser size={18} />
-        <span>Mi Perfil Cifrado</span>
+        <span>Perfil y Dato Sensible (RF-05)</span>
+      </button>
+
+      {isAdmin && (
+        <>
+          <div style={{ margin: '1rem 0 0.5rem', borderTop: '1px solid #E2E8F0', paddingTop: '0.75rem', paddingLeft: '0.5rem', fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            Administración
+          </div>
+
+          <button
+            className={`nav-btn ${active === 'admin' ? 'active' : ''}`}
+            onClick={() => navigate('admin')}
+          >
+            <IconAdmin size={18} />
+            <span>Panel y Bitácora (RF-07)</span>
+          </button>
+        </>
+      )}
+
+      <div style={{ margin: '1rem 0 0.5rem', borderTop: '1px solid #E2E8F0', paddingTop: '0.75rem', paddingLeft: '0.5rem', fontSize: '0.75rem', fontWeight: 700, color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        Seguridad OWASP
+      </div>
+
+      <button
+        className={`nav-btn ${active === 'crypto' ? 'active' : ''}`}
+        onClick={() => navigate('crypto')}
+      >
+        <IconLock size={18} />
+        <span>Criptografía y Salud (A04 / RF-08)</span>
       </button>
     </aside>
   );

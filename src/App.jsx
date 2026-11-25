@@ -3,11 +3,9 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import AuthView from './views/AuthView';
 import NotesView from './views/NotesView';
-import AiAgentsView from './views/AiAgentsView';
-import ExternalApisView from './views/ExternalApisView';
 import AdminView from './views/AdminView';
 import ProfileView from './views/ProfileView';
-import GovernanceView from './views/GovernanceView';
+import CryptoHealthView from './views/CryptoHealthView';
 import { api } from './services/api';
 
 export default function App() {
@@ -80,11 +78,9 @@ export default function App() {
         />
         <main className="content-area">
           {currentView === 'notes' && <NotesView user={user} />}
-          {currentView === 'ai-agents' && <AiAgentsView user={user} />}
-          {currentView === 'apis' && <ExternalApisView user={user} />}
-          {currentView === 'admin' && <AdminView user={user} />}
           {currentView === 'profile' && <ProfileView user={user} onUpdateUser={setUser} />}
-          {currentView === 'governance' && <GovernanceView user={user} />}
+          {currentView === 'admin' && <AdminView user={user} />}
+          {currentView === 'crypto' && <CryptoHealthView user={user} />}
         </main>
       </div>
     </div>
